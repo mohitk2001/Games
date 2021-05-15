@@ -1,23 +1,30 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Square from "./Square"
 import "../App.css";
+import {Pattern} from "./Pattern"
 function Box() {
     let init=["","","","","","","","",""]
     const [board, setBoard] = useState(init)
     const [player,setPlayer]=useState("X");
 
+    console.log(Pattern)
+
     const setValue=(index)=>{
-        //console.log("Working")
-        setBoard(()=>{
-            if(player==='X'){
-                return player
-            }
-            else{
-                return player
-            }
-        })
-
-
+       
+        setBoard(
+            board.map((currVal,ind)=>{
+                if(index===ind && currVal===""){                
+                    return player   
+                }
+                return currVal
+            }) 
+        )
+        
+        if(player==='X'){
+            setPlayer("O")
+        }
+        else
+        setPlayer("X")
     }
 
     return (

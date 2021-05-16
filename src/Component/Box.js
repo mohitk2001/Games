@@ -6,9 +6,21 @@ function Box() {
     let init=["","","","","","","","",""]
     const [board, setBoard] = useState(init)
     const [player,setPlayer]=useState("X");
+    const [result, setResult] = useState({winner:'none',state:"none"})
+    useEffect(() => {
+        
+        checkWin();
+        
+    }, [board])
 
-    console.log(Pattern)
 
+    useEffect(() => {
+       
+        if(result.state!=="none" && result.winner!=="none")
+       alert(`Winner ${result.winner}`)
+
+    }, [result])
+    
     const setValue=(index)=>{
        
         setBoard(
@@ -26,6 +38,30 @@ function Box() {
         else
         setPlayer("X")
     }
+    
+    const checkWin=()=>{
+        Pattern.forEach((currentPattern)=>{
+            const firstPlayer=board[currentPattern[0]];
+
+            if(firstPlayer==="")
+            return
+
+            let foundWinning=true;
+
+            currentPattern.forEach((index)=>{
+                if(board[index]!==player){
+                    foundWinning=false;
+                }
+            });
+            console.log(foundWinning);
+            if(foundWinning){
+                setResult({winner:player,state:"won"})
+                console.log(result)
+            }
+        })
+       
+    }
+
 
     return (
        <>

@@ -10,15 +10,23 @@ function Box() {
     useEffect(() => {
         
         checkWin();
-        
+        checIftie();      
+        if(player==='X'){
+            setPlayer("O")
+        }
+        else
+        setPlayer("X")     
     }, [board])
 
 
     useEffect(() => {
        
-        if(result.state!=="none" && result.winner!=="none")
-       alert(`Winner ${result.winner}`)
+        if((result.state!=="none") && (result.winner!=="none")){
+           
+            alert(`Game finished ${result.winner} ${result.state}`)
 
+            GameRestart()
+        }    
     }, [result])
     
     const setValue=(index)=>{
@@ -32,36 +40,52 @@ function Box() {
             }) 
         )
         
-        if(player==='X'){
-            setPlayer("O")
-        }
-        else
-        setPlayer("X")
+        
     }
     
     const checkWin=()=>{
         Pattern.forEach((currentPattern)=>{
             const firstPlayer=board[currentPattern[0]];
-
+            let foundWinning=true;
             if(firstPlayer==="")
             return
-
-            let foundWinning=true;
-
-            currentPattern.forEach((index)=>{
-                if(board[index]!==player){
-                    foundWinning=false;
+            else{
+                currentPattern.forEach((index)=>{
+                    if(board[index]!==firstPlayer){
+                        foundWinning=false;
+                        
+                        
+                    }
+                    
+                });
+                //console.log(foundWinning)
+                if(foundWinning){    
+                    setResult({winner:"player "+player,state:"won"})
+                    console.log(result)
                 }
-            });
-            console.log(foundWinning);
-            if(foundWinning){
-                setResult({winner:player,state:"won"})
-                console.log(result)
+
             }
+           
         })
        
     }
 
+    const checIftie=()=>{
+        let filled=true;
+        board.forEach((square)=>{
+            if(square===""){
+               filled=false
+            }
+        })
+        if(filled){
+            setResult({winner:"no-one won its",state:"draw"})
+        }
+    }
+
+    const GameRestart=()=>{
+        setBoard(init);
+        setResult({winner:'none',state:"none"})
+    }
 
     return (
        <>

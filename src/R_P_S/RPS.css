@@ -9,7 +9,7 @@
 #player{
     display: flex;
     justify-content: space-around;
-    /* flex-direction: row; */
+    flex-direction: row; 
     width: 100%;
    
 }
@@ -21,13 +21,26 @@
 
 #Img_style{
     background-color: white;
-    object-fit: cover;
-    /* width: 100%; */
+    width: 100%;
+    height: 70%;
+    
+   
+}
+#Img_style:hover{
+    box-shadow: 0px 10px 10px 10px rgb(212, 151, 209);
 }
 
 @media only screen and (max-width: 600px) {
      
-      
+     #Img_style{
+         width: 100%;
+         height: 35%;
+     }
     
-   
+    #image_of_rps{
+        height: 250px;
+    }
+    #image_of_rps h1{
+        font-size: 25px;
+    }
 }
